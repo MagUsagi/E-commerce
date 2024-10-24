@@ -125,14 +125,15 @@ def dashboard(request):
 def profile_management(request):
 
     # Updateing our user's username and email
+
+    user_form = UpdateUserForm(instance=request.user)
+
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         if user_form.is_valid():
             user_form.save()
 
             return redirect('dashboard')
-
-    user_form = UpdateUserForm(instance=request.user)
 
     context = {'user_form': user_form}
 
