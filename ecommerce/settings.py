@@ -12,18 +12,30 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import environ
+import os
+
+# environ
+# SECURITY WARNING: don't run with debug turned on in production!
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l^+7s(d%c4((79s6p!3g@+^*qa)(#710*%8*_sr4%zkh5@z7wh'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +61,9 @@ INSTALLED_APPS = [
     'mathfilters',
 
     'crispy_forms',
+
+    'storages',
+
 ]
 
 
@@ -132,13 +147,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'static/media'
+# MEDIA_ROOT = BASE_DIR / 'static/media'
+
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Default primary key field type
@@ -149,13 +166,42 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email configuration settings:
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_USE_TLS = 'True'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
-EMAIL_HOST_USER = 'mag.website.manage@gmail.com'
-EMAIL_HOST_PASSWORD = 'skxr lkka dnee mwcu'
-
+EMAIL_HOST_USER = env('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') 
 
 # Allow Paypal Popups
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
+
+
+# AWS credentials:
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+
+# S3 configuration settings:
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+
+# Static and Media URLs
+STATIC_URL = 'https://%s/static/' % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = 'https://%s/media/' % AWS_S3_CUSTOM_DOMAIN
+
+# Cache settings for S3
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+
+# Admin styling adjustment
+
+# ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
