@@ -105,12 +105,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
 
 # Password validation
@@ -205,3 +207,24 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 # ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
+
+# RDS (Database) configuration setting:
+
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': env('DATABASE_RDS_NAME'),
+
+        'USER': env('DATABASE_RDS_USER'),
+
+        'PASSWORD': env('DATABASE_RDS_PASSWORD'),
+
+        'HOST': env('DATABASE_RDS_HOST'),
+
+        'PORT': env('DATABASE_RDS_PORT'),
+
+    }
+}
