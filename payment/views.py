@@ -80,10 +80,15 @@ def complete_order(request):
             
             order_id = order.pk
 
+            product_list = []
+
             for item in cart:
                 OrderItem.objects.create(order_id=order_id, product=item['product'], quantity=item['qty'],
                                          price=item['price'], user=request.user)
 
+                product_list.append(item['product'])
+                
+            all_products = product_list
 
             # Email order
             send_mail('Order received', 'Hi! ' + '\n\n' + 'Thank you for placing your order' + '\n\n' +
