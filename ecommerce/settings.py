@@ -37,9 +37,9 @@ DEBUG = False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = ['e-commerce-ukpz.onrender.com','*']
+ALLOWED_HOSTS = ['www.magusagi.com','e-commerce-ukpz.onrender.com','*']
 
-CSRF_TRUSTED_ORIGINS = ['https://e-commerce-ukpz.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.magusagi.com','https://e-commerce-ukpz.onrender.com']
 
 
 # Application definition
