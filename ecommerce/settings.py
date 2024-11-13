@@ -37,9 +37,9 @@ DEBUG = False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = ['www.magusagi.com','e-commerce-ukpz.onrender.com','*']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
-CSRF_TRUSTED_ORIGINS = ['https://www.magusagi.com','https://e-commerce-ukpz.onrender.com']
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS')
 
 
 # Application definition
@@ -107,14 +107,36 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-'''
+
+# Local database configuration setting:
+# 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# 
+
+# RDS (Database) configuration setting:
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': env('DATABASE_RDS_NAME'),
+
+        'USER': env('DATABASE_RDS_USER'),
+
+        'PASSWORD': env('DATABASE_RDS_PASSWORD'),
+
+        'HOST': env('DATABASE_RDS_HOST'),
+
+        'PORT': env('DATABASE_RDS_PORT'),
+
     }
 }
-'''
 
 
 # Password validation
@@ -165,8 +187,8 @@ MEDIA_ROOT = BASE_DIR / 'static/media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email configuration settings:
 
+# Email configuration settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
@@ -203,30 +225,3 @@ STORAGES = {
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_FILE_OVERWRITE = False
-
-
-# Admin styling adjustment
-
-# ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
-
-# RDS (Database) configuration setting:
-
-DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': env('DATABASE_RDS_NAME'),
-
-        'USER': env('DATABASE_RDS_USER'),
-
-        'PASSWORD': env('DATABASE_RDS_PASSWORD'),
-
-        'HOST': env('DATABASE_RDS_HOST'),
-
-        'PORT': env('DATABASE_RDS_PORT'),
-
-    }
-}
