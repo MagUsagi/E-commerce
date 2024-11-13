@@ -19,6 +19,7 @@ import os
 # SECURITY WARNING: don't run with debug turned on in production!
 env = environ.Env(
     # set casting, default value
+    ALLOWED_HOSTS=(list, []),
     DEBUG=(bool, False)
 )
 
@@ -37,9 +38,9 @@ DEBUG = False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS: list[str] = env('ALLOWED_HOSTS')
 
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+CSRF_TRUSTED_ORIGINS: list[str] = env('CSRF_TRUSTED_ORIGINS')
 
 
 # Application definition
