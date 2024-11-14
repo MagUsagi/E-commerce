@@ -18,7 +18,7 @@
 
         <!-- CSS -->
         
-        <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+        <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -156,7 +156,7 @@
 
                 <li class="nav-item">
 
-                    <a type="button" role="button" href="{% url 'cart-summary' %}" class="btn btn-outline-secondary"> 
+                    <a type="button" role="button" href="{% url 'cart-summary' %}" class="btn btn-secondary"> 
                     
 
 
@@ -225,6 +225,43 @@
         {% endblock %}
 
     </body>
+
+    <footer class="text-center bg-body-tertiary">
+        <!-- Grid container -->
+        <div class="container pt-3">
+          <!-- Section: Social media -->
+          <section class="mb-3">
+            
+            <!-- Linkedin -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://www.linkedin.com/in/akane-klauenboesch/"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fa fa-linkedin fa-2x"></i
+            ></a>
+            <!-- Github -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://github.com/MagUsagi"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fa fa-github fa-2x"></i>
+            </a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background: rgba(0, 0, 0, 0.1);">
+          E-commerce Demo Website - 
+          <a class="text-body" href="https://github.com/MagUsagi/E-commerce">Github Repository</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
     <script src="{% static 'js/app.js' %}">
 
