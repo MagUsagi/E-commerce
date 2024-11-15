@@ -1,4 +1,4 @@
-# E-commerce Project with Django - README
+# E-commerce Project with Django
 
 ## Website
 [Visit the E-commerce Site](https://store.magusagi.com/)
@@ -60,7 +60,7 @@ The application is deployed using Render. Below are the steps to deploy the appl
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
+    git clone https://github.com/MagUsagi/E-commerce.git
     cd your-repo
     ```
 
@@ -70,7 +70,8 @@ The application is deployed using Render. Below are the steps to deploy the appl
     ```
 
 3. **Setup Environment Variables**:
-    Create a `.env` file in the root directory and add the necessary environment variables (e.g., database credentials, secret keys).
+    Create a `.env` file in the root directory and add the necessary environment variables (e.g., database credentials, secret keys).\
+    The enviroment variables used in this project can be found in the example file `.env.example`.
 
 4. **Migrate Database**:
     ```bash
@@ -92,7 +93,7 @@ The application is deployed using Render. Below are the steps to deploy the appl
     - Connect your repository.
     - Configure the build and start commands:
       - **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
-      - **Start Command**: `gunicorn your_project_name.wsgi`
+      - **Start Command**: `gunicorn ecommerce.wsgi`
 
     - Add environment variables in Render's dashboard.
     - Deploy the application.
