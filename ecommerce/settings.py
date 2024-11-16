@@ -124,7 +124,7 @@ DATABASES = {
 
     'default': {
 
-        'ENGINE': 'django.db.backends.mariadb',
+        'ENGINE': 'django.db.backends.mysql',
 
         'NAME': env('DATABASE_RDS_NAME'),
 
